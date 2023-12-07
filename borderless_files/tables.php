@@ -379,7 +379,8 @@ $price = "price";
                             <div class="table-responsive">
 
                                 <button class="btn btn-dark text-white">
-                                    <a href=".add-user.php">
+                                    <a href="add-classroom.php">
+                                        <i class="fa-solid fa-circle-plus"></i>
                                         新增
                                     </a>
                                 </button>
@@ -392,7 +393,7 @@ $price = "price";
                                             <th scope="col">店家地址</th>
                                             <th scope="col">電話</th>
                                             <th scope="col">價錢</th>
-                                            <th scope="col">詳細資訊</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -410,10 +411,8 @@ $price = "price";
                                                     ?></td>
                                                 <td><?php echo $row["price"]
                                                     ?></td>
-
                                             </tr>
-                                        <?php endforeach;
-                                        ?>
+                                        <?php endforeach; ?>
 
                                     </tbody>
                                 </table>

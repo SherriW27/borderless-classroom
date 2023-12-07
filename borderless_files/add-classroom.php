@@ -15,28 +15,34 @@
 <body>
     <div class="container">
         <div class="py-2">
-            <a class="btn btn-primary" href="user-list.php">回使用者列表</a>
+            <a class="btn btn-dark" href="tables.php">回使用者列表</a>
         </div>
-        <form action="doAddUser.php" method="post">
+        <form action="doAddClassroom.php" method="post">
             <div class="row mb-3">
-                <label for="name" class="col-sm-2 col-form-label">Name</label>
+                <label for="name" class="col-sm-2 col-form-label">店名</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="address" class="col-sm-2 col-form-label">Address</label>
+                <label for="address" class="col-sm-2 col-form-label">店家地址 </label>
                 <div class="col-sm-10">
                     <input type="address" class="form-control" id="address" name="address" required>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                <label for="phone" class="col-sm-2 col-form-label">電話</label>
                 <div class="col-sm-10">
                     <input type="tel" class="form-control" id="phone" name="phone" required>
                 </div>
             </div>
-            <button class="btn btn-dark" type="submit">送出</button>
+            <div class="row mb-3">
+                <label for="price" class="col-sm-2 col-form-label">價錢</label>
+                <div class="col-sm-10">
+                    <input type="tel" class="form-control" id="price" name="price" required>
+                </div>
+            </div>
+            <button class="btn btn-dark" type="submit">儲存</button>
 
         </form>
 

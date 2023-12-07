@@ -11,21 +11,23 @@ $id = $_POST["id"];
 $name = $_POST["name"];
 $address = $_POST["address"];
 $phone = $_POST["phone"];
+$price = $_POST["price"];
+//??
 
-// $time = date('Y-m-d H:i:s');
+$time = date('Y-m-d H:i:s');
 
 
-echo "$id,$name,$address,$phone";
+echo "$id,$name,$address,$phone,$price";
 
-// if (empty($name) || empty($name) || empty($name)) {
-//     echo "請輸入資料";
-//     die;
-// }
+if (empty($name) || empty($address) || empty($phone) || empty($price)) {
+    echo "請輸入資料";
+    die;
+} //seems not work
 
-// $sql = "INSERT INTO users (name, phone, email,created_at)
+// $sql = "INSERT INTO borderless_db(name, phone, email,created_at)
 // VALUES ('$name', '$phone', '$email','$time')";
-// // echo $sql;
-// // exit;
+// echo $sql;
+// exit;
 
 
 
