@@ -105,17 +105,28 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
             <?php foreach ($rows as $row) : ?>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="card">
-                        <a href="product.php?id=<?=$row["id"]?>">
+
+                        <a href="product.php?id=<?= $row["id"] ?>">
                             <div class="ratio ratio-4x3 ">
-                                <img class="object-fit-cover card-img-top" src="/images/<?= $row["img"] ?>
+                                <img class="object-fit-cover card-img-top" src="/images/
+                                <?= $row["img"] ?>
                         " alt="<?= $row["name"] ?>">
                             </div>
                         </a>
                         <div class="card-body">
-                            <div class=""><a href="product-list.php?category=<?= $row["category_id"] ?>"><?= $row["category_name"] ?></a></div>
-                            <h3 class="card-title"><a href="product.php?id=<?=$row["id"]?>"><?= $row["name"] ?></a></h3>
-                            <div class="text-end text-danger
-                        fs-5">$<?= $row["price"] ?></div>
+
+                            <div class="">
+                                <a href="product-list.php?category=
+                            <?= $row["category_id"] ?>"><?= $row["category_name"] ?>
+                                </a>
+                            </div>
+
+                            <h3 class="card-title">
+                                <a href="product.php?id=<?= $row["id"] ?>"><?= $row["name"] ?></a>
+                            </h3>
+                            <div class="text-end text-danger fs-5">
+                                $<?= $row["price"] ?>
+                            </div>
                         </div>
                     </div>
                 </div>

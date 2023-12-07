@@ -1,3 +1,23 @@
+<?php
+require_once("./borderless_connect.php");
+
+$sql = "SELECT * FROM Classroom";
+$result = $conn->query($sql);
+$rows = $result->fetch_all(MYSQLI_ASSOC);
+// var_dump($rows);
+
+$classroomCount = count($rows);
+
+$id = "id";
+$name = "name";
+$address = "address";
+$phone = "phone";
+$price = "price";
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -357,7 +377,13 @@
                         </div>
                         <div class="card-body ">
                             <div class="table-responsive">
-                                <button class="btn btn-dark">新增</button>
+
+                                <button class="btn btn-dark text-white">
+                                    <a href=".add-user.php">
+                                        新增
+                                    </a>
+                                </button>
+
                                 <table class="table table-hover mt-3">
                                     <thead>
                                         <tr>
@@ -370,12 +396,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if ($classroomCount>0 ): ?>
+                                        <?php foreach ($rows as $row ): ?>
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <th><?= $row["id"] ?></th>
+                                            <td><?= $row["name"] ?> </td>
+                                            <td><?= $row["address"] ?></td>
+                                            <td><?= $row["phone"] ?></td>
+                                            <td><?= $row["price"] ?></td>
+
                                         </tr>
+                                        <?php endforeach ?>
 
                                     </tbody>
                                 </table>
