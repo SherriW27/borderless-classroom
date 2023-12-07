@@ -357,6 +357,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <button class="btn btn-dark">新增</button>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
