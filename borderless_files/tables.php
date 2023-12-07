@@ -403,8 +403,8 @@ $price = "price";
                                             <tr>
                                                 <th><?php echo $row["id"]
                                                     ?></th>
-                                                <td><?php echo $row["name"]
-                                                    ?> </td>
+                                                <td><a href=""> <?php echo $row["name"]
+                                                                ?></a></td>
                                                 <td><?php echo $row["address"]
                                                     ?></td>
                                                 <td><?php echo $row["phone"]

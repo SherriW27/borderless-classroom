@@ -52,8 +52,7 @@ $pageTitle=$rows[0]["order_date"]."銷售紀錄";
                 </tr>
             </thead>
             <tbody>
-                <?php
-                $totalTotal=0;
+                <?php $totalTotal=0;
                 foreach($rows as $row): ?>
                 <tr>
                     <td><?=$row["id"]?></td>
