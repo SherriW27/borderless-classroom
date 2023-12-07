@@ -355,10 +355,31 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">練團室列表</h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body ">
                             <div class="table-responsive">
                                 <button class="btn btn-dark">新增</button>
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-hover mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">id</th>
+                                            <th scope="col">店名</th>
+                                            <th scope="col">店家地址</th>
+                                            <th scope="col">電話</th>
+                                            <th scope="col">價錢</th>
+                                            <th scope="col">詳細資訊</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <!-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>id</th>
@@ -837,7 +858,7 @@
                                             <td>$112,000</td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> -->
                             </div>
                         </div>
                     </div>
