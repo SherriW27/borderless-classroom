@@ -1,13 +1,18 @@
 <?php
-require_once(".borderless_connect.php");
+require_once("./borderless_connect.php");
 
-include("");
+$sql = "SELECT * FROM Classroom";
+$result = $conn->query($sql);
+$rows = $result->fetch_all(MYSQLI_ASSOC);
+var_dump($rows);
 
-//main-css.php css模組化 
+
+// include("../main-css.php");
+
 // $sql = "SELECT * FROM lesson WHERE valid=1 ORDER BY id ASC ";
 // $result = $conn->query($sql);
 // $rows = $result->fetch_all(MYSQLI_ASSOC);
-//var_dump($rows);
+// //var_dump($rows);
 
 // $lessonCount = count($rows);
 
@@ -32,7 +37,7 @@ include("");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Borderless-Classroom</title>
+    <title>Borderless - Coupon</title>
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -227,26 +232,21 @@ include("");
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php //if ($lessonCount > 0) : 
-                                        ?>
-                                        <?php //foreach ($rows as $row) : 
-                                        ?>
-                                        <tr>
-                                            <td><?= //$row["name"] ?></td>
-                                            <td><?= //$row["price"] ?></td>
-                                            <td><?= //$row["category_id"] ?></td>
-                                            <td><?= //$row["classroom_id"] ?></td>
-                                            <td><?= //$row["teacher_id"] ?></td>
-                                            <td><?= //$row["img"] ?></td>
-                                            <td><?= //$row["info"] ?></td>
-                                        </tr>
-                                        <?php //endforeach 
-                                        ?>
-                                        <?php //else : 
-                                        ?>
-                                        目前無使用者
-                                        <?php //endif; 
-                                        ?>
+                                        <?php if ($lessonCount > 0) : ?>
+                                            <?php foreach ($rows as $row) : ?>
+                                                <tr>
+                                                    <td><?= $row["name"] ?></td>
+                                                    <td><?= $row["price"] ?></td>
+                                                    <td><?= $row["category_id"] ?></td>
+                                                    <td><?= $row["classroom_id"] ?></td>
+                                                    <td><?= $row["teacher_id"] ?></td>
+                                                    <td><?= $row["img"] ?></td>
+                                                    <td><?= $row["info"] ?></td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        <?php else : ?>
+                                            目前無使用者
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>

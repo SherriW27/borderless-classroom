@@ -1,7 +1,7 @@
 <?php
-require_once("./borderless_connect.php");
+require_once("../borderless_connect.php");
 
-$sql = "SELECT * FROM Classroom";
+$sql = "SELECT * FROM classroom";
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 // var_dump($rows);
@@ -403,8 +403,12 @@ $price = "price";
                                             <tr>
                                                 <th><?php echo $row["id"]
                                                     ?></th>
-                                                <td><a href=""> <?php echo $row["name"]
-                                                                ?></a></td>
+                                                <td>
+                                                    <a href="edit-classroom.php">
+                                                        <?php echo $row["name"] ?>
+                                                    </a>
+                                                </td>
+
                                                 <td><?php echo $row["address"]
                                                     ?></td>
                                                 <td><?php echo $row["phone"]

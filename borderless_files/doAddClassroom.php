@@ -1,21 +1,21 @@
 <?php
 
-require_once("./borderless_connect.php");
+require_once("../borderless_connect.php");
 
 
 if (!isset($_POST["name"])) {
-    echo "請循正常管道進入此頁";
+    echo " 請循正常管道進入此頁";
     die;
 }
 
-// $id = $_POST["id"];
+$id = $_POST["id"];
 $name = $_POST["name"];
 $address = $_POST["address"];
 $phone = $_POST["phone"];
 $price = $_POST["price"];
-//??
 
-// $time = date('Y-m-d H:i:s');
+
+$time = date('Y-m-d H:i:s');
 
 
 // echo "$id,$name,$address,$phone,$price";
@@ -25,7 +25,7 @@ if (empty($name) || empty($address) || empty($phone) || empty($price)) {
     die;
 } //seems not work
 
-$sql = "INSERT INTO Classroom (name, address, phone, price)
+$sql = "INSERT INTO classroom (name, address, phone, price)
 VALUES ('$name', '$address', '$phone','$price')";
 
 
@@ -40,7 +40,6 @@ if ($conn->query($sql) === TRUE) {
     echo "新增資料錯誤: " . $conn->error;
 }
 
-
 $conn->close();
 
-header("location:tables.php"); //導回資料輸入頁面
+header("location: tables.php"); //導回資料輸入頁面

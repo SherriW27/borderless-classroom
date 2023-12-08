@@ -1,13 +1,19 @@
 <?php
+require_once("../borderless_connect.php");
+$sql = "SELECT * FROM classroom WHERE id=$id AND valid=1";
+echo $sql;
+
+
+
 if (!isset($_GET["id"])) {
     header("location: tables.php");
 }
 
 $id = $_GET["id"];
 
-require("./borderless_connect.php");
-$sql = "SELECT * FROM classroom WHERE id=$id AND valid=1";
+echo $id;
 
+//
 $result = $conn->query($sql);
 $classCount = $result->num_rows;
 
