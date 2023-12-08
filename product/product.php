@@ -20,7 +20,7 @@ if ($result->num_rows == 0) {
 
 
 $rows = $result->fetch_assoc(); //查一下
-// var_dump($rows);
+var_dump($rows);
 
 $sqlLikes = "SELECT user_like.*,users.*  FROM user_like 
 JOIN users ON user_like.user_id=users.id 

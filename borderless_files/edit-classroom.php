@@ -1,41 +1,43 @@
 <?php
-require_once("../borderless_connect.php");
-$sql = "SELECT * FROM classroom WHERE id=$id AND valid=1";
-echo $sql;
 
+// if (!isset($_GET["id"])) {
+//     header("location: tables.php");
+// }
 
+// $id = $_GET["id"];
 
-if (!isset($_GET["id"])) {
-    header("location: tables.php");
-}
+// echo $id;
 
-$id = $_GET["id"];
+// require_once("../borderless_connect.php");
 
-echo $id;
+// $sql = "SELECT * FROM classroom WHERE id=$id AND valid=1";
+// echo $sql;
 
-//
-$result = $conn->query($sql);
-$classCount = $result->num_rows;
+// // var_dump($sql);
 
-$row = $result->fetch_assoc();
+// $result = $conn->query($sql);
+// $classroomCount = $result->num_rows;
+
+// $row = $result->fetch_assoc();
 
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title>User</title>
+    <title>Classroom-edit</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <?php
-    include("css.php");
-    ?>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
 
 </head>
 
 <body>
+    <!-- modal -->
     <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -48,7 +50,7 @@ $row = $result->fetch_assoc();
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <a href="doDeleteUser.php?id=<?= $row["id"] ?>" class="btn btn-danger">確認</a>
+                    <a href="tables.php?id=<?= $row["id"] ?>" class="btn btn-danger">確認</a>
                 </div>
             </div>
         </div>
@@ -56,41 +58,51 @@ $row = $result->fetch_assoc();
 
     <div class="container">
         <div class="py-2">
-            <a class="btn btn-info text-white" href="user-list.php" title="回使用者列表"><i class="bi bi-arrow-left"></i></a>
+            <a class="btn btn-info text-white" href="tables.php" title="回使用者列表"><i class="bi bi-arrow-left"></i></a>
         </div>
-        <?php if ($userCount == 0) : ?>
-            <h1>使用者不存在</h1>
-        <?php else : ?>
-            <form action="doUpdateUser.php" method="post">
-                <input type="hidden" name="id" value="<?= $row["id"] ?>">
-                <table class="table table-bordered">
+        <?php //if ($classroomCount == 0) : 
+        ?>
+        <h1>教室不存在</h1>
+        <?php //else : 
+        ?>
+        <form action="doUpdateUser.php" method="post">
+            <input type="hidden" name="id" value="<?= $row["id"] ?>">
+            <table class="table table-bordered">
 
-                    <tr>
-                        <th>name</th>
-                        <td>
-                            <input type="text" class="form-control" name="name" value="<?= $row["name"] ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>email</th>
-                        <td><input type="email" class="form-control" name="email" value="<?= $row["email"] ?>"></td>
-                    </tr>
-                    <tr>
-                        <th>phone</th>
-                        <td><input type="tel" class="form-control" name="phone" value="<?= $row["phone"] ?>"></td>
-                    </tr>
-                </table>
-                <div class="py-2 d-flex justify-content-between">
-                    <div>
-                        <button class="btn btn-info text-white" type="submit">儲存</button>
-                        <a class="btn btn-info text-white" href="user.php?id=<?= $row["id"] ?>">取消</a>
-                    </div>
-                    <div>
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#alertModal" class="btn btn-danger">刪除</button>
-                    </div>
+                <tr>
+                    <th>name</th>
+                    <td>
+                        <input type="text" class="form-control" name="name" value="<?= $row["name"] ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>address</th>
+                    <td>
+                        <input type="text" class="form-control" name="address" value="<?= $row["address"] ?>">
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>phone</th>
+                    <td><input type="tel" class="form-control" name="phone" value="<?= $row["phone"] ?>"></td>
+                </tr>
+                <tr>
+                    <th>phone</th>
+                    <td><input type="text" class="form-control" name="phone" value="<?= $row["price"] ?>"></td>
+                </tr>
+            </table>
+            <div class="py-2 d-flex justify-content-between">
+                <div>
+                    <button class="btn btn-info text-white" type="submit">儲存</button>
+                    <a class="btn btn-info text-white" href="tables.php?id=<?= $row["id"] ?>">取消</a>
                 </div>
-            </form>
-        <?php endif; ?>
+                <div>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#alertModal" class="btn btn-danger">刪除</button>
+                </div>
+            </div>
+        </form>
+        <?php //endif; 
+        ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
