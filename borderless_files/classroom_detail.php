@@ -5,16 +5,16 @@ if (!isset($_GET["id"])) {
 $id = $_GET["id"];
 require_once("../borderless_connect.php");
 
-$sql = "SELECT classroom.*, classroom_region.region AS region, 
+
+$sql = "SELECT classroom.*, classroom_region.region AS region
 FROM classroom
 JOIN classroom_region ON classroom.region_id = classroom_region.id 
-
 WHERE classroom.id=$id AND classroom.valid=1";
 
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
-var_dump($row);
+// var_dump($row);
 
 ?>
 
@@ -169,7 +169,7 @@ var_dump($row);
                             <table class="table table-striped-columns">
                                 <tr class="row">
                                     <td class="col-2 border-start">品名</td>
-                                    <td class="col-10 border-end"><?= $row["name"] ?></td>
+                                    <td class="col-10 border-end"></td>
                                 </tr>
                                 <tr class="row">
                                     <td class="col-2 border-start">價格</td>
@@ -177,9 +177,9 @@ var_dump($row);
                                 </tr>
                                 <tr class="row">
                                     <td class="col-2 border-start">品牌</td>
-                                    <td class="col-3"></td>
+                                    <td class="col-3">></td>
                                     <td class="col-2">類別／子類別</td>
-                                    <td class="col-5 border-end">／</td>
+                                    <td class="col-5 border-end"></td>
                                 </tr>
                                 <tr class="row">
                                     <td class="col-2 border-start">庫存數量</td>
@@ -189,10 +189,7 @@ var_dump($row);
                                     <td class="col-2 border-start">新增時間</td>
                                     <td class="col-3"></td>
                                     <td class="col-2">上架時間</td>
-                                    <td class="col-5 border-end">
-
-
-                                    </td>
+                                    <td class="col-5 border-end"></td>
                                 </tr>
                                 <tr class="row">
                                     <td class="col-2 border-start">商品說明</td>
@@ -204,7 +201,7 @@ var_dump($row);
                                 </tr>
                             </table>
                             <div class="text-center">
-                                <a class="btn btn-primary" href="">編輯資訊</a>
+                                <a class="btn btn-primary" href="instrument-edit.php?id=">編輯資訊</a>
 
                                 <!-- Button trigger modal -->
                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">

@@ -1,7 +1,7 @@
 <?php
 require_once("../borderless_connect.php");
 
-$sql = "SELECT * FROM classroom";
+$sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC ";
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 // var_dump($rows);
@@ -398,20 +398,22 @@ $price = "price";
                                         <?php foreach ($rows as $row) :
                                         ?>
                                             <tr>
-                                                <th><?php echo $row["id"]
+                                                <th><?= $row["id"]
                                                     ?></th>
                                                 <td>
-                                                    <a href="classroom-detail.php">
-                                                        <?php echo $row["name"] ?>
+                                                    <a href="classroom-detail.php?id=<?= $row["id"] ?>">
+
+                                                        <?= $row["name"] ?>
                                                     </a>
                                                 </td>
 
-                                                <td><?php echo $row["address"]
+                                                <td><?= $row["address"]
                                                     ?></td>
-                                                <td><?php echo $row["phone"]
+                                                <td><?= $row["phone"]
                                                     ?></td>
-                                                <td><?php echo $row["price"]
+                                                <td><?= $row["price"]
                                                     ?></td>
+                                                <td><a class="btn btn-info bg-dark text-white" href="classroom_detail.php?id=<?= $row["id"] ?>"><i class="justify-content-end fa-solid fa-circle-info"></i></a></td>
                                             </tr>
                                         <?php endforeach; ?>
 
