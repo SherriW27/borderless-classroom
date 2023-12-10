@@ -31,7 +31,7 @@ $row = $result->fetch_assoc();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>商品詳細資訊</title>
+    <title>練團室詳細資訊</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -91,9 +91,9 @@ $row = $result->fetch_assoc();
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="instrument-list.php">
-                    <i class="fa-solid fa-guitar"></i>
-                    <span>樂器商品管理</span></a>
+                <a class="nav-link" href="classroom_detail.php?id=<?= $row["id"] ?>">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>場地租借管理</span></a>
             </li>
 
             <!-- Divider -->
@@ -157,7 +157,7 @@ $row = $result->fetch_assoc();
                 <!-- Begin Page 本頁內容 -->
                 <div class="container-fluid">
                     <div class="mx-3">
-                        <a class="btn btn-secondary" href="instrument-list.php"><i class="fa-solid fa-reply"></i> 回商品清單</a>
+                        <a class="btn btn-secondary" href="tables.php"><i class="fa-solid fa-reply"></i> 回店家清單</a>
                     </div>
                     <div class="mx-3 py-3 row gx-5">
                         <div class="col-4">
@@ -168,14 +168,31 @@ $row = $result->fetch_assoc();
                         <div class="col-8 pe-2">
                             <table class="table table-striped-columns">
                                 <tr class="row">
-                                    <td class="col-2 border-start">品名</td>
-                                    <td class="col-10 border-end"></td>
+                                    <td class="col-2 border-start">練團室</td>
+                                    <td class="col-10 border-end"><?= $row["name"] ?></td>
                                 </tr>
                                 <tr class="row">
                                     <td class="col-2 border-start">價格</td>
-                                    <td class="col-10 border-end">$</td>
+                                    <td class="col-10 border-end"><?= $row["price"] ?></td>
                                 </tr>
                                 <tr class="row">
+                                    <td class="col-2 border-start">地址</td>
+                                    <td class="col-10 border-end"><?= $row["address"] ?></td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2 border-start">電話</td>
+                                    <td class="col-10 border-end"><?= $row["phone"] ?></td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2 border-start">其他聯絡方式</td>
+                                    <td class="col-10 border-end"><?= $row["email"] ?></td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2 border-start">設備資訊
+                                    </td>
+                                    <td class="col-10 border-end"></td>
+                                </tr>
+                                <!-- <tr class="row">
                                     <td class="col-2 border-start">品牌</td>
                                     <td class="col-3">></td>
                                     <td class="col-2">類別／子類別</td>
@@ -184,24 +201,28 @@ $row = $result->fetch_assoc();
                                 <tr class="row">
                                     <td class="col-2 border-start">庫存數量</td>
                                     <td class="col-10 border-end"></td>
-                                </tr>
+                                </tr> -->
                                 <tr class="row">
                                     <td class="col-2 border-start">新增時間</td>
-                                    <td class="col-3"></td>
+                                    <td class="col-3"><?= $row["created_time"] ?></td>
                                     <td class="col-2">上架時間</td>
-                                    <td class="col-5 border-end"></td>
+                                    <td class="col-5 border-end"><?= $row["onshelf_time"] ?>
+                                        （<?php $time = strtotime(date('Y-m-d H:i:s'));
+                                            if (strtotime($row["onshelf_time"]) > $time) {
+                                                echo "未上架";
+                                            } else {
+                                                echo "已上架";
+                                            }
+                                            ?>）</td>
                                 </tr>
-                                <tr class="row">
-                                    <td class="col-2 border-start">商品說明</td>
-                                    <td class="col-10 border-end"></td>
-                                </tr>
-                                <tr class="row">
+
+                                <!-- <tr class="row">
                                     <td class="col-2 border-start">最後更新時間</td>
                                     <td class="col-10 border-end"></td>
-                                </tr>
+                                </tr> -->
                             </table>
                             <div class="text-center">
-                                <a class="btn btn-primary" href="instrument-edit.php?id=">編輯資訊</a>
+                                <a class="btn btn-primary" href="classroom-edit_copy.php?id=<?= $row["id"] ?>">編輯資訊</a>
 
                                 <!-- Button trigger modal -->
                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">

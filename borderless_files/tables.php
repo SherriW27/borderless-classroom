@@ -402,7 +402,6 @@ $price = "price";
                                                     ?></th>
                                                 <td>
                                                     <a href="classroom-detail.php?id=<?= $row["id"] ?>">
-
                                                         <?= $row["name"] ?>
                                                     </a>
                                                 </td>
@@ -413,7 +412,8 @@ $price = "price";
                                                     ?></td>
                                                 <td><?= $row["price"]
                                                     ?></td>
-                                                <td><a class="btn btn-info bg-dark text-white" href="classroom_detail.php?id=<?= $row["id"] ?>"><i class="justify-content-end fa-solid fa-circle-info"></i></a></td>
+                                                <td><a class="btn btn-info bg-dark text-white" href="classroom_detail.php?id=<?= $row["id"] ?>">
+                                                        <i class="justify-content-end fa-solid fa-circle-info"></i></a></td>
                                             </tr>
                                         <?php endforeach; ?>
 
@@ -433,7 +433,7 @@ $price = "price";
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Borderless 2023</span>
                     </div>
                 </div>
             </footer>
