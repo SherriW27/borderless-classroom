@@ -401,7 +401,7 @@ $price = "price";
                                                 <th><?php echo $row["id"]
                                                     ?></th>
                                                 <td>
-                                                    <a href="classroom_detail.php">
+                                                    <a href="classroom-detail.php">
                                                         <?php echo $row["name"] ?>
                                                     </a>
                                                 </td>

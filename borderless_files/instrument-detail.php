@@ -1,6 +1,6 @@
 <?php
 if (!isset($_GET["id"])) {
-    header("location: instrument-list.php");
+    header("location: tables.php");
 }
 $id = $_GET["id"];
 require_once("../borderless_connect.php");
@@ -12,8 +12,11 @@ JOIN instrument_subcategory ON instrument.subcategory_id = instrument_subcategor
 JOIN brand ON instrument.brand_id = brand.id
 WHERE instrument.id=$id AND instrument.valid=1";
 
+
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
+
+
 
 ?>
 
@@ -193,7 +196,7 @@ $row = $result->fetch_assoc();
                                             } else {
                                                 echo "已上架";
                                             }
-                                        ?>）
+                                            ?>）
                                     </td>
                                 </tr>
                                 <tr class="row">
@@ -206,7 +209,7 @@ $row = $result->fetch_assoc();
                                 </tr>
                             </table>
                             <div class="text-center">
-                                <a class="btn btn-primary" href="instrument-edit.php?id=<?=$row["id"]?>">編輯資訊</a>
+                                <a class="btn btn-primary" href="instrument-edit.php?id=<?= $row["id"] ?>">編輯資訊</a>
 
                                 <!-- Button trigger modal -->
                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
