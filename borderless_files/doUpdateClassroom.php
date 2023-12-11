@@ -8,19 +8,22 @@ if (!isset($_POST["name"])) {
 
 $id = $_POST["id"];
 $name = $_POST["name"];
+$price = $_POST["price"];
 $address = $_POST["address"];
 $phone = $_POST["phone"];
-$price = $_POST["price"];
-// echo $name;
+$email = $_POST["email"];
+// echo $name, $price, $address, $phone, $email;
 
-$sql = "UPDATE users SET name='$name', email='$email', phone='$phone' WHERE id=$id";
+$sql = "UPDATE classroom SET name='$name', 
+price='$price',address='$address',phone='$phone',email='$email' WHERE id=$id";
+
 
 if ($conn->query($sql) === TRUE) {
-    echo "更新成功";
+    // echo "更新成功";
 } else {
     echo "更新資料錯誤: " . $conn->error;
 }
 
 $conn->close();
 
-header("location: user-edit.php?id=$id");
+header("location: classroom-detail.php?id=$id");

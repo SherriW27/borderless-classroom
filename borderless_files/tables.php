@@ -16,8 +16,6 @@ $price = "price";
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -410,8 +408,9 @@ $price = "price";
                                                     ?></td>
                                                 <td><?= $row["price"]
                                                     ?></td>
-                                                <td><a class="btn btn-info bg-dark text-white" href="classroom-detail.php?id=<?= $row["id"] ?>">
-                                                        <i class="justify-content-end fa-solid fa-circle-info"></i></a></td>
+                                                <!-- 本來要設給詳細資訊的符號 -->
+                                                <!-- <td><a class="btn btn-info bg-dark text-white" href="classroom-detail.php?id=<?= $row["id"] ?>">
+                                                        <i class="justify-content-end fa-solid fa-circle-info"></i></a></td> -->
                                             </tr>
                                         <?php endforeach; ?>
 

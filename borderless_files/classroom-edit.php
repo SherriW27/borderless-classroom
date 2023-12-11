@@ -13,7 +13,7 @@ require_once("../borderless_connect.php");
 // // 檢查連線
 
 
-$sql = "SELECT * FROM classroom WHERE id=$id";
+$sql = "SELECT * FROM classroom WHERE id=$id AND valid=1";
 
 // if (!$conn->query($sql)) {
 //     die("連線失敗: " .
@@ -26,14 +26,16 @@ $result = $conn->query($sql);
 $classroomCount = $result->num_rows;
 
 $row = $result->fetch_assoc();
-?>
+
 // var_dump($row);
+?>
+
 
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title>User</title>
+    <title>編輯資訊</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -72,40 +74,57 @@ $row = $result->fetch_assoc();
 
     <div class="container">
         <div class="py-2">
-            <a class="btn btn-info text-white" href="user-list.php" title="回使用者列表"><i class="bi bi-arrow-left"></i></a>
+            <a class="btn btn-info text-white" href="classroom-detail.php?id=<?= $row["id"] ?>" title="回使用者列表"><i class="bi bi-arrow-left">回練團室詳細資訊</i></a>
         </div>
         <?php if ($classroomCount == 0) : ?>
             <h1>練團室不存在</h1>
         <?php else : ?>
             <form action="doUpdateClassroom.php" method="post">
                 <input type="hidden" name="id" value="<?= $row["id"] ?>">
-                // 修改表單本單 顯示出來後修改
                 <table class="table table-bordered">
 
                     <tr>
-                        <th>name</th>
+                        <th>練團室</th>
                         <td>
                             <input type="text" class="form-control" name="name" value="<?= $row["name"] ?>">
                         </td>
                     </tr>
                     <tr>
-                        <th>email</th>
-                        <td><input type="email" class="form-control" name="email" value="<?= $row["email"] ?>"></td>
+                        <th>價格</th>
+                        <td>
+                            <input type="text" class="form-control" name="price" value="<?= $row["price"] ?>">
+                        </td>
                     </tr>
                     <tr>
-                        <th>phone</th>
+                        <th>地址</th>
+                        <td>
+                            <input type="text" class="form-control" name="address" value="<?= $row["address"] ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>電話</th>
                         <td><input type="tel" class="form-control" name="phone" value="<?= $row["phone"] ?>"></td>
                     </tr>
+                    <tr>
+                        <th>其他聯絡方式</th>
+                        <td><input type="email" class="form-control" name="email" value="<?= $row["email"] ?>"></td>
+                    </tr>
+                    <!-- <tr>
+                        <th>設備資訊</th>
+                        <td><input type="text" class="form-control" name="info" value=""></td>
+                    </tr> -->
+
                 </table>
 
-                <div class="py-2 d-flex justify-content-between">
+                <div class="py-2 d-flex justify-content-end">
                     <div>
                         <button class="btn btn-info text-white" type="submit">儲存</button>
-                        <a class="btn btn-info text-white" href="tables.php?id=<?= $row["id"] ?>">取消</a>
+                        <a class="btn btn-info text-white" href="classroom-detail.php?id=<?= $row["id"] ?>">取消</a>
                     </div>
+                    <!-- 
                     <div>
                         <button type="button" data-bs-toggle="modal" data-bs-target="#alertModal" class="btn btn-danger">刪除</button>
-                    </div>
+                    </div> -->
                 </div>
             </form>
         <?php endif; ?>

@@ -157,12 +157,14 @@ $row = $result->fetch_assoc();
                 <!-- Begin Page 本頁內容 -->
                 <div class="container-fluid">
                     <div class="mx-3">
-                        <a class="btn btn-secondary" href="tables.php"><i class="fa-solid fa-reply"></i> 回店家清單</a>
+                        <a class="btn btn-secondary" href="tables.php"><i class="fa-solid fa-reply"></i> 回練團室清單</a>
                     </div>
+
+                    <!-- 用form包?-->
                     <div class="mx-3 py-3 row gx-5">
                         <div class="col-4">
                             <div class="bg-body border ratio ratio-1x1">
-                                <img class="object-fit-contain p-2" src="" alt="">
+                                <img class="object-fit-contain p-2" src="/Images/<?= $row["name"] ?>/" alt="">
                             </div>
                         </div>
                         <div class="col-8 pe-2">
