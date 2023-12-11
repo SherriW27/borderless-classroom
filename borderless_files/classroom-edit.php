@@ -17,8 +17,7 @@ $sql = "SELECT * FROM classroom WHERE id=$id";
 
 if (!$conn->query($sql)) {
     die("連線失敗: " .
-        $conn->connect_error);
-    exit;
+        $conn->error);
 } else {
     echo "資料庫連線成功";
 }
@@ -26,6 +25,6 @@ if (!$conn->query($sql)) {
 // $result = $conn->query($sql);
 // $classroomCount = $result->num_rows;
 
-$row = $result->fetch_assoc();
+// $row = $result->fetch_assoc();
 
-var_dump($row);
+// var_dump($row);

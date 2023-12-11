@@ -401,9 +401,7 @@ $price = "price";
                                                 <th><?= $row["id"]
                                                     ?></th>
                                                 <td>
-                                                    <a href="classroom-detail.php?id=<?= $row["id"] ?>">
-                                                        <?= $row["name"] ?>
-                                                    </a>
+                                                    <a href="classroom-detail.php?id=<?= $row["id"] ?>"><?= $row["name"] ?> </a>
                                                 </td>
 
                                                 <td><?= $row["address"]
@@ -412,7 +410,7 @@ $price = "price";
                                                     ?></td>
                                                 <td><?= $row["price"]
                                                     ?></td>
-                                                <td><a class="btn btn-info bg-dark text-white" href="classroom_detail.php?id=<?= $row["id"] ?>">
+                                                <td><a class="btn btn-info bg-dark text-white" href="classroom-detail.php?id=<?= $row["id"] ?>">
                                                         <i class="justify-content-end fa-solid fa-circle-info"></i></a></td>
                                             </tr>
                                         <?php endforeach; ?>

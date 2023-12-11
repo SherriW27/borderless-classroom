@@ -222,7 +222,7 @@ $row = $result->fetch_assoc();
                                 </tr> -->
                             </table>
                             <div class="text-center">
-                                <a class="btn btn-primary" href="classroom-edit_copy.php?id=<?= $row["id"] ?>">編輯資訊</a>
+                                <a class="btn btn-primary" href="classroom-edit.php?id=<?= $row["id"] ?>">編輯資訊</a>
 
                                 <!-- Button trigger modal -->
                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
