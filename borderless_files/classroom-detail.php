@@ -91,7 +91,7 @@ $row = $result->fetch_assoc();
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="classroom_detail.php?id=<?= $row["id"] ?>">
+                <a class="nav-link" href="classroom-detail.php?id=<?= $row["id"] ?>">
                     <i class="fa-solid fa-map-location-dot"></i>
                     <span>場地租借管理</span></a>
             </li>
@@ -242,7 +242,10 @@ $row = $result->fetch_assoc();
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                                <button class="btn btn-danger">刪除</button>
+                                                <!-- ??????超連結包按鈕 -->
+                                                <a href="doDeleteClassroom.php?id=<?= $row["id"] ?>" class="btn btn-danger">
+                                                    確定刪除
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
