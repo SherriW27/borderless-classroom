@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once("../borderless_connect.php");
 
 
@@ -8,11 +11,12 @@ if (!isset($_POST["name"])) {
     die;
 }
 
-$id = $_POST["id"];
+// $id = $_POST["id"];
 $name = $_POST["name"];
 $address = $_POST["address"];
 $phone = $_POST["phone"];
 $price = $_POST["price"];
+
 
 
 $time = date('Y-m-d H:i:s');
@@ -25,8 +29,8 @@ if (empty($name) || empty($address) || empty($phone) || empty($price)) {
     die;
 } //seems not work
 
-$sql = "INSERT INTO classroom (name, address, phone, price)
-VALUES ('$name', '$address', '$phone','$price')";
+$sql = "INSERT INTO classroom (name, address, phone, price,valid)
+VALUES ('$name', '$address', '$phone','$price',1)";
 
 
 // exit;

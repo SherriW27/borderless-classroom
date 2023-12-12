@@ -65,8 +65,11 @@ $row = $result->fetch_assoc();
                     確認刪除?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <a href="doDeleteClassroom.php?id=<?= $row["id"] ?>" class="btn btn-danger">確認</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消
+                    </button>
+                    <a href="doDeleteClassroom.php?id=<?= $row["id"] ?>" class="btn btn-danger">
+                        確認
+                    </a>
                 </div>
             </div>
         </div>
@@ -96,9 +99,15 @@ $row = $result->fetch_assoc();
                         </td>
                     </tr>
                     <tr>
+                        <th>區域</th>
+                        <td>
+                            <input type="text" class="form-control" name="region" value="<?= $row["region_id"] ?>">
+                        </td>
+                    </tr>
+                    <tr>
                         <th>地址</th>
                         <td>
-                            <input type="text" class="form-control" name="address" value="<?= $row["address"] ?>">
+                            <input type="address" class="form-control" name="address" value="<?= $row["address"] ?>">
                         </td>
                     </tr>
                     <tr>

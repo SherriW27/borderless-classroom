@@ -24,6 +24,13 @@
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
             </div>
+            <!-- 要設正規表達式限制 只能輸入1~4-->
+            <div class="row mb-3">
+                <label for="region" class="col-sm-2 col-form-label">區域</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="region" name="region" required>
+                </div>
+            </div>
             <div class="row mb-3">
                 <label for="address" class="col-sm-2 col-form-label">店家地址 </label>
                 <div class="col-sm-10">

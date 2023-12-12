@@ -10,6 +10,8 @@ $sql = "SELECT classroom.*, classroom_region.region AS region
 FROM classroom
 JOIN classroom_region ON classroom.region_id = classroom_region.id 
 WHERE classroom.id=$id AND classroom.valid=1";
+$sql = "SELECT *
+FROM classroom WHERE id=$id AND valid=1";
 
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
@@ -164,7 +166,7 @@ $row = $result->fetch_assoc();
                     <div class="mx-3 py-3 row gx-5">
                         <div class="col-4">
                             <div class="bg-body border ratio ratio-1x1">
-                                <img class="object-fit-contain p-2" src="/Images/<?= $row["name"] ?>/" alt="">
+                                <img class="object-fit-contain p-2" src="../borderless_files/images/<?= $row["img"] ?>" alt="<?= $row["img"] ?>">
                             </div>
                         </div>
                         <div class="col-8 pe-2">
@@ -176,6 +178,10 @@ $row = $result->fetch_assoc();
                                 <tr class="row">
                                     <td class="col-2 border-start">價格</td>
                                     <td class="col-10 border-end"><?= $row["price"] ?></td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2 border-start">區域</td>
+                                    <td class="col-10 border-end"><?= $row["region_id"] ?></td>
                                 </tr>
                                 <tr class="row">
                                     <td class="col-2 border-start">地址</td>

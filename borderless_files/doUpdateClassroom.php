@@ -9,13 +9,14 @@ if (!isset($_POST["name"])) {
 $id = $_POST["id"];
 $name = $_POST["name"];
 $price = $_POST["price"];
+$region = $_POST["region"];
 $address = $_POST["address"];
 $phone = $_POST["phone"];
 $email = $_POST["email"];
-// echo $name, $price, $address, $phone, $email;
+echo $name, $price, $region, $address, $phone, $email;
 
 $sql = "UPDATE classroom SET name='$name', 
-price='$price',address='$address',phone='$phone',email='$email' WHERE id=$id";
+price='$price',region_id='$region', address='$address',phone='$phone',email='$email' WHERE id=$id";
 
 
 if ($conn->query($sql) === TRUE) {

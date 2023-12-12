@@ -9,7 +9,7 @@ if (!isset($_GET["id"])) {
 $id = $_GET["id"];
 
 $sql = "UPDATE classroom SET valid='0'  WHERE id=$id";
-echo $sql;
+// echo $sql;
 // exit;
 
 if ($conn->query($sql) === TRUE) {
@@ -18,6 +18,6 @@ if ($conn->query($sql) === TRUE) {
     echo "刪除資料錯誤: " . $conn->error;
 }
 
-// $conn->close();
+$conn->close();
 
 header("location:tables.php");
