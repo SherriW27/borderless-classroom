@@ -46,4 +46,4 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 
-header("location: tables.php"); //導回資料輸入頁面
+header("location: classroom-list.php"); //導回資料輸入頁面

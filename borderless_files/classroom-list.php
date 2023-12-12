@@ -1,18 +1,47 @@
 <?php
 require_once("../borderless_connect.php");
 
-$sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC ";
+// 本來的
+// $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC ";
+// $result = $conn->query($sql);
+// $rows = $result->fetch_all(MYSQLI_ASSOC);
+// // var_dump($rows);
+
+// $classroomCount = count($rows);
+
+// $id = "id";
+// $name = "name";
+// $address = "address";
+// $phone = "phone";
+// $price = "price";
+
+
+// 製作分頁
+$countSql = "SELECT classroom.* FROM classroom WHERE valid=1";
+$countResult = $conn->query($countSql);
+// 資料總筆數
+$countTotal = $countResult->num_rows;
+
+$dataPerPage = 5; // 每頁顯示資料數
+$pageCount = ceil($countTotal / $dataPerPage); // 計算需要的頁數
+
+if (isset($_GET["page"])) {
+    $pageNow = $_GET["page"];
+    $startItem = ($pageNow - 1) * $dataPerPage; // 每頁第一筆資料在陣列的key ex:(2-1)*20=20 ->key=20, id=21的資料
+    $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC 
+    LIMIT $startItem, $dataPerPage"; //從key $startItem 開始，抓5筆
+} else {
+    $pageNow = 1; // 如果沒有選頁數的話停在第一頁
+
+    //第一頁的資料
+    $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC 
+    LIMIT 0, $dataPerPage"; //從key 0開始，抓5筆
+}
+
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
-// var_dump($rows);
 
-$classroomCount = count($rows);
-
-$id = "id";
-$name = "name";
-$address = "address";
-$phone = "phone";
-$price = "price";
+$conn->close();
 
 ?>
 
@@ -89,8 +118,8 @@ $price = "price";
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.php">Buttons</a>
-                        <a class="collapse-item" href="cards.php">Cards</a>
+                        <a class="collapse-item" href="add-classroom.php">新增</a>
+
                     </div>
                 </div>
             </li>
@@ -149,9 +178,17 @@ $price = "price";
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.php">
+                <a class="nav-link collapsed" href="classroom-list.php" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa-solid fa-map-location-dot"></i>
-                    <span>場地租借管理</span></a>
+                    <span>場地租借管理</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">功能:</h6>
+                        <a class="collapse-item" href="add-classroom.php">新增</a>
+
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -365,11 +402,25 @@ $price = "price";
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800"></h1>
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h4 class="m-0 font-weight-bold text-secondary">練團室列表</h4>
+                            <p class="mt-2 text-secondary">點選店名，查看或編輯練團室資訊。</p>
                         </div>
+                        <!-- 搜尋欄 -->
+                        <div style="width: 20%;">
+                            <form action="" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="搜尋商品..." name="search" value="<?php if (isset($_GET["search"])) {
+                                                                                                                            echo $_GET["search"];
+                                                                                                                        } ?>">
+                                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 新增按鍵 -->
                         <div class="card-body ">
                             <div class="table-responsive">
 
@@ -379,7 +430,7 @@ $price = "price";
                                         新增
                                     </a>
                                 </button>
-
+                                <!-- DataTales Example -->
                                 <table class="table table-hover mt-3">
                                     <thead>
                                         <tr>
@@ -406,8 +457,8 @@ $price = "price";
                                                     ?></td>
                                                 <td><?= $row["phone"]
                                                     ?></td>
-                                                <td><?= $row["price"]
-                                                    ?></td>
+                                                <td>＄<?= $row["price"]
+                                                        ?></td>
                                                 <!-- 本來要設給詳細資訊的符號 -->
                                                 <!-- <td><a class="btn btn-info bg-dark text-white" href="classroom-detail.php?id=<?= $row["id"] ?>">
                                                         <i class="justify-content-end fa-solid fa-circle-info"></i></a></td> -->
@@ -416,6 +467,46 @@ $price = "price";
 
                                     </tbody>
                                 </table>
+
+                                <!-- 產生分頁 -->
+                                <div class="py-2">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination d-flex justify-content-center">
+                                            <!-- 若在第一頁，上一頁無效 -->
+                                            <li class="page-item">
+                                                <?php if ($pageNow == 1) : ?>
+                                                    <a class="page-link disabled" aria-label="Previous" aria-disabled="true">
+                                                    <?php else : ?>
+                                                        <a class="page-link" href="classroom-list.php?page=<?= $pageNow - 1 ?>" aria-label="Previous">
+                                                        <?php endif; ?>
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                        <span class="sr-only">Previous</span>
+                                                        </a>
+                                            </li>
+                                            <!-- 數字頁碼 -->
+                                            <?php for ($i = 1; $i <= $pageCount; $i++) : ?>
+                                                <li class="page-item <?php if ($pageNow == $i) echo "active"; ?>">
+                                                    <a class="page-link" href="classroom-list.php?page=<?= $i ?>"><?= $i ?></a>
+                                                </li>
+                                            <?php endfor; ?>
+                                            <li class="page-item">
+                                                <!-- 若在最後一頁，下一頁無效 -->
+                                                <?php if ($pageNow == $pageCount) : ?>
+                                                    <a class="page-link disabled" aria-label="Next" aria-disabled="true">
+                                                    <?php else : ?>
+                                                        <a class="page-link" href="classroom-list.php?page=<?= $pageNow + 1 ?>" aria-label="Next">
+                                                        <?php endif; ?>
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                        <span class="sr-only">Next</span>
+                                                        </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+
+
+
+
                             </div>
                         </div>
                     </div>

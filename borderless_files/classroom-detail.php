@@ -1,6 +1,6 @@
 <?php
 if (!isset($_GET["id"])) {
-    header("location: tables.php");
+    header("location: classroom-list.php");
 }
 $id = $_GET["id"];
 require_once("../borderless_connect.php");
@@ -159,7 +159,7 @@ $row = $result->fetch_assoc();
                 <!-- Begin Page 本頁內容 -->
                 <div class="container-fluid">
                     <div class="mx-3">
-                        <a class="btn btn-secondary" href="tables.php"><i class="fa-solid fa-reply"></i> 回練團室清單</a>
+                        <a class="btn btn-secondary" href="classroom-list.php"><i class="fa-solid fa-reply"></i> 回練團室清單</a>
                     </div>
 
                     <!-- 用form包?-->
@@ -177,7 +177,7 @@ $row = $result->fetch_assoc();
                                 </tr>
                                 <tr class="row">
                                     <td class="col-2 border-start">價格</td>
-                                    <td class="col-10 border-end"><?= $row["price"] ?></td>
+                                    <td class="col-10 border-end">$<?= $row["price"] ?></td>
                                 </tr>
                                 <tr class="row">
                                     <td class="col-2 border-start">區域</td>

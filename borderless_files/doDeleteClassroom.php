@@ -20,4 +20,4 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 
-header("location:tables.php");
+header("location:classroom-list.php");

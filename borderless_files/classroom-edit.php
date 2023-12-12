@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($_GET["id"])) {
-    header("location: tables.php");
+    header("location: classroom-list.php");
 }
 
 $id = $_GET["id"];

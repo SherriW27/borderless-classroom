@@ -74,7 +74,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.php">
+                <a class="nav-link" href="classroom-list.php">
                     <!--  -->
                     <i class="fa-solid fa-map-location-dot"></i>
                     <span>場地租借管理</span></a>
