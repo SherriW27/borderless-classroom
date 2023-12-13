@@ -70,8 +70,8 @@ if (isset($_GET["page"]) && isset($_GET["order"])) {
 //     $sql = "SELECT * FROM classroom WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR address LIKE '%$search%'  AND valid=1";
 // } 
 else {
-    $pageNow = 1;
-    $order = 1;
+    // $pageNow = 1;
+    // $order = 1;
     if (isset($_GET["search"])) {
         $search = $_GET["search"];
         $sql = "SELECT * FROM classroom WHERE name LIKE '%$search%' OR email LIKE '%$search%' AND valid=1";
