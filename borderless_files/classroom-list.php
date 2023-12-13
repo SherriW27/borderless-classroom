@@ -485,7 +485,10 @@ $conn->close();
                                             <button class="btn btn-dark" type="submit" id=""><i class="bi bi-search"></i></button>
                                     </form> -->
                                     <div>
-                                        <a class="btn btn-dark mx-2" href="classroom-add.php"> 增加使用者</a>
+                                        <a class="btn btn-dark mx-2" href="classroom-add.php">
+                                            <i class="fa-solid fa-plus"></i>
+                                            增加練團室
+                                        </a>
 
                                         <?php
                                         if (isset($_GET["search"])) : ?>
