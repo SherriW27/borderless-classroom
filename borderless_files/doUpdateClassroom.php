@@ -1,5 +1,5 @@
 <?php
-require_once("../borderless_connect.php");
+require_once("../boundless_connect.php");
 
 if (!isset($_POST["name"])) {
     echo "請循正常管道進入此頁";

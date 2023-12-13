@@ -1,8 +1,9 @@
 <?php
-require_once("../borderless_connect.php");
+require_once("../boundless_connect.php");
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 // 本來的
 // $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC ";
 // $result = $conn->query($sql);
@@ -63,10 +64,12 @@ if (isset($_GET["page"]) && isset($_GET["order"])) {
     // ------------------------------------------------------------------------------------------------------------------------------------------
 
     // ------------------------------------------------------------------------------------------------------------------------------------------
-} elseif (isset($_GET["search"])) {
-    $search = $_GET["search"];
-    $sql = "SELECT * FROM classroom WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR address LIKE '%$search%'  AND valid=1";
-} else {
+}
+// elseif (isset($_GET["search"])) {
+//     $search = $_GET["search"];
+//     $sql = "SELECT * FROM classroom WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR address LIKE '%$search%'  AND valid=1";
+// } 
+else {
     $pageNow = 1;
     $order = 1;
     if (isset($_GET["search"])) {
@@ -478,6 +481,7 @@ $conn->close();
                                         新增
                                     </a>
                                 </button> -->
+
                                 <!-- 升降冪 -->
                                 <div class=" col d-flex justify-content-between">
                                     <!-- <form class=" col py-2" action="">
@@ -550,40 +554,45 @@ $conn->close();
                             </table>
 
                             <!-- 產生分頁 -->
-                            <div class="py-2">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination d-flex justify-content-center">
-                                        <!-- 若在第一頁，上一頁無效 -->
-                                        <li class="page-item">
-                                            <?php if ($pageNow == 1) : ?>
-                                                <a class="page-link disabled" aria-label="Previous" aria-disabled="true">
-                                                <?php else : ?>
-                                                    <a class="page-link" href="classroom-list.php?page=<?= $pageNow - 1 ?>&order=<?= $order ?>" aria-label="Previous">
-                                                    <?php endif; ?>
-                                                    <span aria-hidden="true">&laquo;</span>
-                                                    <span class="sr-only">Previous</span>
-                                                    </a>
-                                        </li>
-                                        <!-- 數字頁碼 -->
-                                        <?php for ($i = 1; $i <= $pageCount; $i++) : ?>
-                                            <li class="page-item <?php if ($pageNow == $i) echo "active"; ?>">
-                                                <a class="page-link" href="classroom-list.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a>
+                            <!-- 如有search頁碼消失 -->
+                            <?php if (!isset($_GET["search"])) : ?>
+                                <div class="py-2">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination d-flex justify-content-center">
+                                            <!-- 若在第一頁，上一頁無效 -->
+                                            <li class="page-item">
+                                                <?php if ($pageNow == 1) : ?>
+                                                    <a class="page-link disabled" aria-label="Previous" aria-disabled="true">
+                                                        <!-- renders a disabled "Previous" link or  -->
+                                                    <?php else : ?>
+                                                        <a class="page-link" href="classroom-list.php?page=<?= $pageNow - 1 ?>&order=<?= $order ?>" aria-label="Previous">
+                                                            <!-- provides an active link pointing to the previous page -->
+                                                        <?php endif; ?>
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                        <span class="sr-only">Previous</span>
+                                                        </a>
                                             </li>
-                                        <?php endfor; ?>
-                                        <li class="page-item">
-                                            <!-- 若在最後一頁，下一頁無效 -->
-                                            <?php if ($pageNow == $pageCount) : ?>
-                                                <a class="page-link disabled" aria-label="Next" aria-disabled="true">
-                                                <?php else : ?>
-                                                    <a class="page-link" href="classroom-list.php?page=<?= $pageNow + 1 ?>&order=<?= $order ?>" aria-label="Next">
-                                                    <?php endif; ?>
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                    <span class="sr-only">Next</span>
-                                                    </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+                                            <!-- 數字頁碼 -->
+                                            <?php for ($i = 1; $i <= $pageCount; $i++) : ?>
+                                                <li class="page-item <?php if ($pageNow == $i) echo "active"; ?>">
+                                                    <a class="page-link" href="classroom-list.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a>
+                                                </li>
+                                            <?php endfor; ?>
+                                            <li class="page-item">
+                                                <!-- 若在最後一頁，下一頁無效 -->
+                                                <?php if ($pageNow == $pageCount) : ?>
+                                                    <a class="page-link disabled" aria-label="Next" aria-disabled="true">
+                                                    <?php else : ?>
+                                                        <a class="page-link" href="classroom-list.php?page=<?= $pageNow + 1 ?>&order=<?= $order ?>" aria-label="Next">
+                                                        <?php endif; ?>
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                        <span class="sr-only">Next</span>
+                                                        </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

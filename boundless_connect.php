@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "admin";
 $password = "12345";
-$dbname = "borderless_db";
+$dbname = "boundless_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -7,7 +7,7 @@ if (!isset($_GET["id"])) {
 $id = $_GET["id"];
 
 
-require_once("../borderless_connect.php");
+require_once("../boundless_connect.php");
 
 // $conn = new mysqli($servername, $username, $password, $dbname);
 // // 檢查連線

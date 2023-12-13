@@ -1,9 +1,12 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (!isset($_GET["id"])) {
     header("location: classroom-list.php");
 }
 $id = $_GET["id"];
-require_once("../borderless_connect.php");
+require_once("../boundless_connect.php");
 
 
 $sql = "SELECT classroom.*, classroom_region.region AS region
@@ -62,7 +65,7 @@ $row = $result->fetch_assoc();
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fa-solid fa-music"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Boundless</div>
+                <div class="sidebar-brand-text mx-3">Borderless</div>
             </a>
 
             <!-- Divider -->
@@ -161,18 +164,22 @@ $row = $result->fetch_assoc();
                 <!-- Begin Page 本頁內容 -->
                 <div class="container-fluid">
                     <div class="mx-3">
-                        <a class="btn btn-dark" href="classroom-list.php"><i class="fa-solid fa-reply"></i> 回練團室清單</a>
+                        <a class="btn btn-secondary" href="classroom-list.php"><i class="fa-solid fa-reply"></i> 回練團室清單</a>
                     </div>
 
                     <!-- 用form包?-->
                     <div class="mx-3 py-3 row gx-5">
                         <div class="col-4">
                             <div class="bg-body border ratio ratio-1x1">
-                                <img class="object-fit-contain p-2" src="../borderless_files/images/<?= $row["img"] ?>" alt="<?= $row["img"] ?>">
+                                <img class="object-fit-contain p-2" src="./images/<?= $row["img"] ?>" alt="<?= $row["img"] ?>">
                             </div>
                         </div>
                         <div class="col-8 pe-2">
                             <table class="table table-striped-columns">
+                                <tr class="row">
+                                    <td class="col-2 border-start">id</td>
+                                    <td class="col-10 border-end"><?= $row["id"] ?></td>
+                                </tr>
                                 <tr class="row">
                                     <td class="col-2 border-start">練團室</td>
                                     <td class="col-10 border-end"><?= $row["name"] ?></td>
@@ -274,7 +281,7 @@ $row = $result->fetch_assoc();
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Boundless 2023</span>
+                        <span>Copyright &copy; Borderless 2023</span>
                     </div>
                 </div>
             </footer>
