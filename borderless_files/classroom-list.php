@@ -24,26 +24,27 @@ $countResult = $conn->query($countSql);
 // 資料總筆數
 $countTotal = $countResult->num_rows;
 
-$dataPerPage = 5; // 每頁顯示資料數
+$dataPerPage = 10; // 每頁顯示資料數
 $pageCount = ceil($countTotal / $dataPerPage); // 計算需要的頁數
 
-if (isset($_GET["page"])) {
-    $pageNow = $_GET["page"];
-    $startItem = ($pageNow - 1) * $dataPerPage; // 每頁第一筆資料在陣列的key ex:(2-1)*20=20 ->key=20, id=21的資料
-    $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC 
-    LIMIT $startItem, $dataPerPage"; //從key $startItem 開始，抓5筆
-} else {
-    $pageNow = 1; // 如果沒有選頁數的話停在第一頁
+// if (isset($_GET["page"])) {
+//     $pageNow = $_GET["page"];
+//     $startItem = ($pageNow - 1) * $dataPerPage; // 每頁第一筆資料在陣列的key ex:(2-1)*20=20 ->key=20, id=21的資料
+//     $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC 
+//     LIMIT $startItem, $dataPerPage"; //從key $startItem 開始，抓5筆
+// } else {
+//     $pageNow = 1; // 如果沒有選頁數的話停在第一頁
 
-    //第一頁的資料
-    $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC 
-    LIMIT 0, $dataPerPage"; //從key 0開始，抓5筆
-}
+//     //第一頁的資料
+//     $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC 
+//     LIMIT 0, $dataPerPage"; //從key 0開始，抓5筆
+// }
 
 //升降冪
 if (isset($_GET["page"]) && isset($_GET["order"])) {
-    $page = $_GET["page"];
+    $pageNow = $_GET["page"];
     $order = $_GET["order"];
+
     switch ($order) {
         case 1:
             $orderSql = "id ASC";
@@ -56,18 +57,17 @@ if (isset($_GET["page"]) && isset($_GET["order"])) {
             break;
     }
 
-    $startItem = ($page - 1) * $dataPerPage;
+    $startItem = ($pageNow - 1) * $dataPerPage;
+    $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY $orderSql LIMIT $startItem, $dataPerPage";
 
     // ------------------------------------------------------------------------------------------------------------------------------------------
-    if (isset($_GET["search"])) {
-        $search = $_GET["search"];
-        $sql = "SELECT * FROM classroom WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR address LIKE '%$search%'  AND valid=1 ORDER BY $orderSql LIMIT $startItem, $dataPerPage";
-    } else {
-        $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY $orderSql LIMIT $startItem, $dataPerPage";
-    }
+
     // ------------------------------------------------------------------------------------------------------------------------------------------
+} elseif (isset($_GET["search"])) {
+    $search = $_GET["search"];
+    $sql = "SELECT * FROM classroom WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR address LIKE '%$search%'  AND valid=1";
 } else {
-    $page = 1;
+    $pageNow = 1;
     $order = 1;
     if (isset($_GET["search"])) {
         $search = $_GET["search"];
@@ -456,15 +456,15 @@ $conn->close();
                             <h4 class="m-0 font-weight-bold text-secondary">練團室列表</h4>
                             <p class="mt-2 text-secondary">點選店名，查看或編輯練團室資訊。</p>
                         </div>
-                        <!-- 搜尋欄 -->
+                        <!-- 搜尋欄 可以先拿掉-->
                         <div style="width: 20%;">
                             <form action="" method="get">
-                                <div class="input-group py-3">
+                                <div class="input-group py-3 mx-3">
                                     <input type="text" class="form-control" placeholder="搜尋練團室..." name="search" value=" <?php if (isset($_GET["search"])) {
                                                                                                                                 echo $_GET["search"];
                                                                                                                             } ?>">
 
-                                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                    <button class="btn btn-dark" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>
                             </form>
                         </div>
@@ -496,11 +496,11 @@ $conn->close();
                                         共 <?= $countTotal - 1 ?>家, 當前顯示 <?= $classroomCount ?> 家
                                     </div>
                                     <div>
-                                        <a class="btn btn-dark " href="classroom-list.php">
-                                            <i class="fa-solid fa-arrow-down-1-9"></i>
+                                        <a class="btn btn-dark " href="classroom-list.php?page=<?= $pageNow ?>&order=1">
+                                            <i class="fa-solid fa-arrow-down-1-9">升冪</i>
                                         </a>
-                                        <a class="btn btn-dark" href="classroom-list.php?page=<?= $page ?>&order=2">
-                                            <i class="fa-solid fa-arrow-up-1-9"></i>
+                                        <a class="btn btn-dark" href="classroom-list.php?page=<?= $pageNow ?>&order=2">
+                                            <i class="fa-solid fa-arrow-up-1-9">降冪</i>
                                         </a>
                                     </div>
                                 </div>
@@ -555,7 +555,7 @@ $conn->close();
                                             <?php if ($pageNow == 1) : ?>
                                                 <a class="page-link disabled" aria-label="Previous" aria-disabled="true">
                                                 <?php else : ?>
-                                                    <a class="page-link" href="classroom-list.php?page=<?= $pageNow - 1 ?>" aria-label="Previous">
+                                                    <a class="page-link" href="classroom-list.php?page=<?= $pageNow - 1 ?>&order=<?= $order ?>" aria-label="Previous">
                                                     <?php endif; ?>
                                                     <span aria-hidden="true">&laquo;</span>
                                                     <span class="sr-only">Previous</span>
@@ -564,7 +564,7 @@ $conn->close();
                                         <!-- 數字頁碼 -->
                                         <?php for ($i = 1; $i <= $pageCount; $i++) : ?>
                                             <li class="page-item <?php if ($pageNow == $i) echo "active"; ?>">
-                                                <a class="page-link" href="classroom-list.php?page=<?= $i ?>"><?= $i ?></a>
+                                                <a class="page-link" href="classroom-list.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a>
                                             </li>
                                         <?php endfor; ?>
                                         <li class="page-item">
@@ -572,7 +572,7 @@ $conn->close();
                                             <?php if ($pageNow == $pageCount) : ?>
                                                 <a class="page-link disabled" aria-label="Next" aria-disabled="true">
                                                 <?php else : ?>
-                                                    <a class="page-link" href="classroom-list.php?page=<?= $pageNow + 1 ?>" aria-label="Next">
+                                                    <a class="page-link" href="classroom-list.php?page=<?= $pageNow + 1 ?>&order=<?= $order ?>" aria-label="Next">
                                                     <?php endif; ?>
                                                     <span aria-hidden="true">&raquo;</span>
                                                     <span class="sr-only">Next</span>
