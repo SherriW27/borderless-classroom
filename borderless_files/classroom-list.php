@@ -1,6 +1,8 @@
 <?php
 require_once("../borderless_connect.php");
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // 本來的
 // $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC ";
 // $result = $conn->query($sql);
@@ -38,8 +40,48 @@ if (isset($_GET["page"])) {
     LIMIT 0, $dataPerPage"; //從key 0開始，抓5筆
 }
 
+//升降冪
+if (isset($_GET["page"]) && isset($_GET["order"])) {
+    $page = $_GET["page"];
+    $order = $_GET["order"];
+    switch ($order) {
+        case 1:
+            $orderSql = "id ASC";
+            break;
+        case 2:
+            $orderSql = "id DESC";
+            break;
+        default:
+            $orderSql = "id ASC";
+            break;
+    }
+
+    $startItem = ($page - 1) * $dataPerPage;
+
+    // ------------------------------------------------------------------------------------------------------------------------------------------
+    if (isset($_GET["search"])) {
+        $search = $_GET["search"];
+        $sql = "SELECT * FROM classroom WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR address LIKE '%$search%'  AND valid=1 ORDER BY $orderSql LIMIT $startItem, $dataPerPage";
+    } else {
+        $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY $orderSql LIMIT $startItem, $dataPerPage";
+    }
+    // ------------------------------------------------------------------------------------------------------------------------------------------
+} else {
+    $page = 1;
+    $order = 1;
+    if (isset($_GET["search"])) {
+        $search = $_GET["search"];
+        $sql = "SELECT * FROM classroom WHERE name LIKE '%$search%' OR email LIKE '%$search%' AND valid=1";
+    } else {
+        $sql = "SELECT * FROM classroom WHERE valid=1 ORDER BY id ASC LIMIT 0, $dataPerPage";
+    }
+}
+
+
+
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
+$classroomCount = count($rows);
 
 $conn->close();
 
@@ -73,6 +115,11 @@ $conn->close();
 
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- main.css -->
+    <link rel="stylesheet" href="css/main.css">
+
+
 </head>
 
 <body id="page-top">
@@ -110,7 +157,7 @@ $conn->close();
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Components</span>
@@ -122,7 +169,7 @@ $conn->close();
 
                     </div>
                 </div>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
@@ -185,7 +232,7 @@ $conn->close();
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">功能:</h6>
-                        <a class="collapse-item" href="add-classroom.php">新增</a>
+                        <a class="collapse-item" href="classroom-add.php">新增</a>
 
                     </div>
                 </div>
@@ -219,7 +266,7 @@ $conn->close();
                     </form>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
@@ -228,7 +275,7 @@ $conn->close();
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -239,7 +286,7 @@ $conn->close();
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                            <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -250,18 +297,18 @@ $conn->close();
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                            </div> -->
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        <!-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                <i class="fas fa-bell fa-fw"></i> -->
+                        <!-- Counter - Alerts -->
+                        <!-- <span class="badge badge-danger badge-counter">3+</span>
+                            </a> -->
+                        <!-- Dropdown - Alerts -->
+                        <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
@@ -299,18 +346,18 @@ $conn->close();
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
+                            </div> -->
+                        <!-- </li> -->
 
                         <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        <!-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                <i class="fas fa-envelope fa-fw"></i> -->
+                        <!-- Counter - Messages -->
+                        <!-- <span class="badge badge-danger badge-counter">7</span>
+                            </a> -->
+                        <!-- Dropdown - Messages -->
+                        <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
                                     Message Center
                                 </h6>
@@ -359,8 +406,8 @@ $conn->close();
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
+                            </div> -->
+                        <!-- </li> -->
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -412,10 +459,11 @@ $conn->close();
                         <!-- 搜尋欄 -->
                         <div style="width: 20%;">
                             <form action="" method="get">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="搜尋商品..." name="search" value="<?php if (isset($_GET["search"])) {
-                                                                                                                            echo $_GET["search"];
-                                                                                                                        } ?>">
+                                <div class="input-group py-3">
+                                    <input type="text" class="form-control" placeholder="搜尋練團室..." name="search" value=" <?php if (isset($_GET["search"])) {
+                                                                                                                                echo $_GET["search"];
+                                                                                                                            } ?>">
+
                                     <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>
                             </form>
@@ -424,111 +472,139 @@ $conn->close();
                         <div class="card-body ">
                             <div class="table-responsive">
 
-                                <button class="btn btn-dark text-white">
-                                    <a href="add-classroom.php">
+                                <!-- <button class="btn btn-dark text-white">
+                                    <a href="classroom-add.php">
                                         <i class="fa-solid fa-circle-plus"></i>
                                         新增
                                     </a>
-                                </button>
-                                <!-- DataTales Example -->
-                                <table class="table table-hover mt-3">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">id</th>
-                                            <th scope="col">店名</th>
-                                            <th scope="col">店家地址</th>
-                                            <th scope="col">電話</th>
-                                            <th scope="col">價錢</th>
+                                </button> -->
+                                <!-- 升降冪 -->
+                                <div class=" col d-flex justify-content-between">
+                                    <!-- <form class=" col py-2" action="">
+                                        <div class="input-group"><input type="text" class="form-control" placeholder="搜尋..." name="search">
+                                            <button class="btn btn-dark" type="submit" id=""><i class="bi bi-search"></i></button>
+                                    </form> -->
+                                    <div>
+                                        <a class="btn btn-dark mx-2" href="classroom-add.php"> 增加使用者</a>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                        <?php
+                                        if (isset($_GET["search"])) : ?>
+                                            <a class="btn btn-dark " href="classroom-list.php"><i class="bi bi-card-list"></i>查看練團室清單</a>
+                                            <?php echo "搜尋" . $_GET["search"] . "的結果,"; ?>
 
-                                        <?php foreach ($rows as $row) :
-                                        ?>
-                                            <tr>
-                                                <th><?= $row["id"]
-                                                    ?></th>
-                                                <td>
-                                                    <a href="classroom-detail.php?id=<?= $row["id"] ?>"><?= $row["name"] ?> </a>
-                                                </td>
-
-                                                <td><?= $row["address"]
-                                                    ?></td>
-                                                <td><?= $row["phone"]
-                                                    ?></td>
-                                                <td>＄<?= $row["price"]
-                                                        ?></td>
-                                                <!-- 本來要設給詳細資訊的符號 -->
-                                                <!-- <td><a class="btn btn-info bg-dark text-white" href="classroom-detail.php?id=<?= $row["id"] ?>">
-                                                        <i class="justify-content-end fa-solid fa-circle-info"></i></a></td> -->
-                                            </tr>
-                                        <?php endforeach; ?>
-
-                                    </tbody>
-                                </table>
-
-                                <!-- 產生分頁 -->
-                                <div class="py-2">
-                                    <nav aria-label="Page navigation example">
-                                        <ul class="pagination d-flex justify-content-center">
-                                            <!-- 若在第一頁，上一頁無效 -->
-                                            <li class="page-item">
-                                                <?php if ($pageNow == 1) : ?>
-                                                    <a class="page-link disabled" aria-label="Previous" aria-disabled="true">
-                                                    <?php else : ?>
-                                                        <a class="page-link" href="classroom-list.php?page=<?= $pageNow - 1 ?>" aria-label="Previous">
-                                                        <?php endif; ?>
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                        <span class="sr-only">Previous</span>
-                                                        </a>
-                                            </li>
-                                            <!-- 數字頁碼 -->
-                                            <?php for ($i = 1; $i <= $pageCount; $i++) : ?>
-                                                <li class="page-item <?php if ($pageNow == $i) echo "active"; ?>">
-                                                    <a class="page-link" href="classroom-list.php?page=<?= $i ?>"><?= $i ?></a>
-                                                </li>
-                                            <?php endfor; ?>
-                                            <li class="page-item">
-                                                <!-- 若在最後一頁，下一頁無效 -->
-                                                <?php if ($pageNow == $pageCount) : ?>
-                                                    <a class="page-link disabled" aria-label="Next" aria-disabled="true">
-                                                    <?php else : ?>
-                                                        <a class="page-link" href="classroom-list.php?page=<?= $pageNow + 1 ?>" aria-label="Next">
-                                                        <?php endif; ?>
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                        <span class="sr-only">Next</span>
-                                                        </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                                        <?php endif ?>
+                                        共 <?= $countTotal - 1 ?>家, 當前顯示 <?= $classroomCount ?> 家
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-dark " href="classroom-list.php">
+                                            <i class="fa-solid fa-arrow-down-1-9"></i>
+                                        </a>
+                                        <a class="btn btn-dark" href="classroom-list.php?page=<?= $page ?>&order=2">
+                                            <i class="fa-solid fa-arrow-up-1-9"></i>
+                                        </a>
+                                    </div>
                                 </div>
 
 
+                            </div>
 
+                            <!-- DataTales Example -->
+                            <table class="table table-hover mt-3">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">店名</th>
+                                        <th scope="col">店家地址</th>
+                                        <th scope="col">電話</th>
+                                        <th scope="col">價錢</th>
 
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <?php foreach ($rows as $row) :
+                                    ?>
+                                        <tr>
+                                            <th><?= $row["id"]
+                                                ?></th>
+                                            <td>
+                                                <a href="classroom-detail.php?id=<?= $row["id"] ?>"><?= $row["name"] ?> </a>
+                                            </td>
+
+                                            <td><?= $row["address"]
+                                                ?></td>
+                                            <td><?= $row["phone"]
+                                                ?></td>
+                                            <td>＄<?= $row["price"]
+                                                    ?></td>
+                                            <!-- 本來要設給詳細資訊的符號 -->
+                                            <!-- <td><a class="btn btn-info bg-dark text-white" href="classroom-detail.php?id=<?= $row["id"] ?>">
+                                                        <i class="justify-content-end fa-solid fa-circle-info"></i></a></td> -->
+                                        </tr>
+                                    <?php endforeach; ?>
+
+                                </tbody>
+                            </table>
+
+                            <!-- 產生分頁 -->
+                            <div class="py-2">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination d-flex justify-content-center">
+                                        <!-- 若在第一頁，上一頁無效 -->
+                                        <li class="page-item">
+                                            <?php if ($pageNow == 1) : ?>
+                                                <a class="page-link disabled" aria-label="Previous" aria-disabled="true">
+                                                <?php else : ?>
+                                                    <a class="page-link" href="classroom-list.php?page=<?= $pageNow - 1 ?>" aria-label="Previous">
+                                                    <?php endif; ?>
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                    <span class="sr-only">Previous</span>
+                                                    </a>
+                                        </li>
+                                        <!-- 數字頁碼 -->
+                                        <?php for ($i = 1; $i <= $pageCount; $i++) : ?>
+                                            <li class="page-item <?php if ($pageNow == $i) echo "active"; ?>">
+                                                <a class="page-link" href="classroom-list.php?page=<?= $i ?>"><?= $i ?></a>
+                                            </li>
+                                        <?php endfor; ?>
+                                        <li class="page-item">
+                                            <!-- 若在最後一頁，下一頁無效 -->
+                                            <?php if ($pageNow == $pageCount) : ?>
+                                                <a class="page-link disabled" aria-label="Next" aria-disabled="true">
+                                                <?php else : ?>
+                                                    <a class="page-link" href="classroom-list.php?page=<?= $pageNow + 1 ?>" aria-label="Next">
+                                                    <?php endif; ?>
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                    </a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Borderless 2023</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
+            <!-- /.container-fluid -->
         </div>
         <!-- End of Content Wrapper -->
+
+        <!-- End of Main Content -->
+
+
+
+    </div>
+    <!-- Footer -->
+
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Borderless 2023</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- End of Footer -->
 
     </div>
     <!-- End of Page Wrapper -->
