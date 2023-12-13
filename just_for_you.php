@@ -37,7 +37,7 @@ var_dump($rows);
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Borderless - Coupon</title>
+    <title>Boundless - Coupon</title>
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@ var_dump($rows);
                 <div class="sidebar-brand-icon rotate-n-15">
                     <!-- <i class="fas fa-laugh-wink"></i> -->
                 </div>
-                <div class="sidebar-brand-text mx-3">Borderless
+                <div class="sidebar-brand-text mx-3">Boundless
                     <!-- <sup>2</sup> -->
                 </div>
             </a>
@@ -263,7 +263,7 @@ var_dump($rows);
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Borderless 2023</span>
+                        <span>Copyright &copy; Boundless 2023</span>
                     </div>
                 </div>
             </footer>
